@@ -5,11 +5,6 @@ A Python-based **Genetic Algorithm (GA)** developed to solve a complex **Constra
 ## 🧠 Project Overview
 This project explores **Heuristic Search Methods** to navigate a vast search space of ingredients. Unlike a brute-force approach, this algorithm evolves a population of solutions to efficiently converge on an optimal configuration of flavors, bases, and toppings.
 
-## 🛠️ Key Engineering Features
-* **Structured Chromosome Encoding**: Implements a fixed-position genotype where specific indices represent distinct categories (Flavors, Bases, Sweeteners, Toppings), ensuring structural consistency.
-* **Context-Aware Fitness Function**: Evaluates the quality of an individual based on the specific role an ingredient plays, handling semantic ambiguity across categories.
-* **Constraint Optimization**: Manages data intersections and category overlaps to prevent invalid or redundant ingredient configurations.
-
 ## 🧬 Technical Architecture
 
 ### The Fitness Function
@@ -23,9 +18,24 @@ Where:
 * **$N$ (Novelty)**: Uniqueness score for the combination.
 
 ### Evolutionary Workflow
-1.  **Truncation Selection**: Only the top 50 individuals are selected for the mating pool to ensure high-pressure selection.
-2.  **Heuristic Crossover**: Offspring inherit the best-performing traits from their parents, accelerating convergence.
-3.  **Domain-Constrained Mutation**: A 20% mutation probability introduces random variability within valid category bounds to avoid local optima.
+1.  **Truncation Selection**: High-pressure selection focusing on the top 50 individuals.
+2.  **Heuristic Crossover**: Offspring inherit the best-performing traits, accelerating convergence.
+3.  **Domain-Constrained Mutation**: A 20% probability introduces variability while maintaining category integrity.
+
+---
+
+## 🔍 2026 Performance Audit & Retrospective
+*This project serves as a historical baseline of my early work in Bio-inspired Computing. Analyzing it today reveals several optimization vectors that I would now implement differently:*
+
+### 1. Time Complexity & Bottlenecks
+* **Fitness Memoization**: Currently, the algorithm recalculates fitness during every `sort` operation. A more efficient approach would involve **caching/memoizing** fitness scores within each object to reduce redundant computations from $O(G \cdot N \log N)$ to a more manageable overhead.
+* **List Manipulations**: The use of `.remove()` inside selection loops introduces $O(N^2)$ complexity. In a production environment, I would utilize **pointer swapping** or **heap-based selection** to achieve $O(1)$ or $O(\log N)$ performance.
+
+### 2. Architectural Design
+* **Decoupling**: The current implementation is tightly coupled to specific ingredient categories. I would now refactor this into an **abstract Genetic Framework** where the data schema and fitness rules are injected as plugins, making the engine truly domain-agnostic.
+* **Type Safety**: Transitioning to Python’s `dataclasses` or `Type Hints` would significantly improve maintainability and prevent the semantic ambiguity found in early iterations.
+
+---
 
 ## 🚀 Getting Started
 
@@ -35,23 +45,16 @@ Where:
 ### Installation
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/oscarjia/genetic-ice-cream-optimizer.git](https://github.com/oscarjia/genetic-ice-cream-optimizer.git)
+    git clone [https://github.com/Jiaks95/genetic-ice-cream-optimizer.git](https://github.com/Jiaks95/genetic-ice-cream-optimizer.git)
     ```
 2.  Run the optimizer:
     ```bash
-    python run_genetic_algorithm.py
+    python genetic_algorithm.py
     ```
 
----
-
-## 📝 Engineering Note
-> Originally developed as a freshman implementation of evolutionary algorithms, this project has been **refactored and professionally optimized** to showcase advanced concepts in constraint handling and search heuristics.
-
-## 🌐 Data & Localization Note
-While the core logic, function names, and documentation are implemented in **English** for international engineering standards, the ingredient dataset (`datos.py`) remains in **Spanish**. 
-
-The algorithm is designed to be **language-agnostic**; it processes the underlying fitness values and constraints regardless of the string representation of the data.
+## 🌐 Localization Note
+The core logic and documentation are in **English**, while the dataset (`data.py`) remains in **Spanish**. The algorithm is **language-agnostic**; it processes fitness values and constraints regardless of the string representation.
 
 ## 👤 Author
-* **Óscar Jia** – Software Engineering Student
-* [LinkedIn](https://www.linkedin.com/in/oscar-jia) | [GitHub](https://github.com/oscarjia)
+* **Óscar Jia** – Software Engineering Student [cite: 2025-09-10]
+* [LinkedIn](https://www.linkedin.com/in/oscar-jia) | [GitHub](https://github.com/Jiaks95)
