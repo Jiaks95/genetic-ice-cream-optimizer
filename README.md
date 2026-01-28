@@ -56,5 +56,5 @@ Where:
 The core logic and documentation are in **English**, while the dataset (`data.py`) remains in **Spanish**. The algorithm is **language-agnostic**; it processes fitness values and constraints regardless of the string representation.
 
 ## 👤 Author
-* **Óscar Jia** – Software Engineering Student [cite: 2025-09-10]
+* **Óscar Jia** – Software Engineering Student
 * [LinkedIn](https://www.linkedin.com/in/oscar-jia) | [GitHub](https://github.com/Jiaks95)
