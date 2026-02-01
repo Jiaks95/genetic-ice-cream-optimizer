@@ -1,60 +1,43 @@
-# Genetic Ice Cream Optimizer
+# Genetic Ingredient Optimizer
 
-A Python-based **Genetic Algorithm (GA)** developed to solve a complex **Constraint Optimization Problem**: finding the ideal ice cream combination based on multi-variable fitness criteria.
+A Python-based project that explores **Evolutionary Algorithms** to find the best ice cream combination based on flavor, texture, and novelty scores.
 
-## 🧠 Project Overview
-This project explores **Heuristic Search Methods** to navigate a vast search space of ingredients. Unlike a brute-force approach, this algorithm evolves a population of solutions to efficiently converge on an optimal configuration of flavors, bases, and toppings.
+## Project Overview
+Created as an academic assignment during my early studies in Software Engineering, this project implements a basic **Genetic Algorithm (GA)** from scratch. It simulates natural selection (crossover, mutation, and selection) to optimize a product configuration without using external optimization libraries.
 
-## 🧬 Technical Architecture
+## How it Works
 
-### The Fitness Function
-The quality of each individual $f$ is calculated as the sum of its attributes:
+### The Goal
+Maximize a fitness score calculated by summing the attributes of selected ingredients:
+$$F(x) = \sum (Flavor + Texture + Novelty)$$
 
-$$f(x) = \sum_{i=1}^{n} (S_i + T_i + N_i)$$
-
-Where:
-* **$S$ (Flavor)**: Taste profile optimization.
-* **$T$ (Texture)**: Structural mouthfeel evaluation.
-* **$N$ (Novelty)**: Uniqueness score for the combination.
-
-### Evolutionary Workflow
-1.  **Truncation Selection**: High-pressure selection focusing on the top 50 individuals.
-2.  **Heuristic Crossover**: Offspring inherit the best-performing traits, accelerating convergence.
-3.  **Domain-Constrained Mutation**: A 20% probability introduces variability while maintaining category integrity.
+### The Process
+1.  **Population:** Starts with random combinations of ingredients.
+2.  **Selection:** Keeps the top performing combinations.
+3.  **Crossover:** Combines "parents" to create new mixtures, aiming to inherit the best traits.
+4.  **Mutation:** Randomly changes ingredients (with 20% probability) to introduce variety.
 
 ---
 
-## 🔍 2026 Performance Audit & Retrospective
-*This project serves as a historical baseline of my early work in Bio-inspired Computing. Analyzing it today reveals several optimization vectors that I would now implement differently:*
+## Retrospective (2026)
+*Looking back at this project as a 3rd-year student, I recognize it represents my initial steps into algorithmic logic. While the implementation uses basic Python structures, it helped me understand the core concepts of heuristics and constraints before learning formal data structures.*
 
-### 1. Time Complexity & Bottlenecks
-* **Fitness Memoization**: Currently, the algorithm recalculates fitness during every `sort` operation. A more efficient approach would involve **caching/memoizing** fitness scores within each object to reduce redundant computations from $O(G \cdot N \log N)$ to a more manageable overhead.
-* **List Manipulations**: The use of `.remove()` inside selection loops introduces $O(N^2)$ complexity. In a production environment, I would utilize **pointer swapping** or **heap-based selection** to achieve $O(1)$ or $O(\log N)$ performance.
-
-### 2. Architectural Design
-* **Decoupling**: The current implementation is tightly coupled to specific ingredient categories. I would now refactor this into an **abstract Genetic Framework** where the data schema and fitness rules are injected as plugins, making the engine truly domain-agnostic.
-* **Type Safety**: Transitioning to Python’s `dataclasses` or `Type Hints` would significantly improve maintainability and prevent the semantic ambiguity found in early iterations.
+* **Current Analysis:** The algorithm relies heavily on list manipulations which could be optimized today using Hash Maps or Sets for faster lookups ($O(1)$).
+* **Architecture:** The logic is tightly coupled to the data. A modern approach would separate the algorithm engine from the specific ingredient data.
 
 ---
 
-## 🚀 Getting Started
+## Usage
 
-### Prerequisites
-* Python 3.x
-
-### Installation
 1.  Clone the repository:
     ```bash
     git clone [https://github.com/Jiaks95/genetic-ice-cream-optimizer.git](https://github.com/Jiaks95/genetic-ice-cream-optimizer.git)
     ```
-2.  Run the optimizer:
+2.  Run the simulation:
     ```bash
     python genetic_algorithm.py
     ```
 
-## 🌐 Localization Note
-The core logic and documentation are in **English**, while the dataset (`data.py`) remains in **Spanish**. The algorithm is **language-agnostic**; it processes fitness values and constraints regardless of the string representation.
-
-## 👤 Author
-* **Óscar Jia** – Software Engineering Student
-* [LinkedIn](https://www.linkedin.com/in/oscar-jia) | [GitHub](https://github.com/Jiaks95)
+## Author
+**Óscar Jia** – Software Engineering Student | Python Developer
+[LinkedIn](https://www.linkedin.com/in/oscar-jia) | [GitHub](https://github.com/Jiaks95)
